@@ -6,9 +6,9 @@ $password = "";
 $server = "localhost";
 $database = "php_jobportal";
 
-$con = mysqli_connect($server, $username, $password,  $database,);
+$connection = mysqli_connect($server, $username, $password,  $database,);
 
-if($con){
+if($connection){
     echo "Connection successful";
 }
 else {
