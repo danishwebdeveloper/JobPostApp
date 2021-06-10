@@ -65,8 +65,9 @@ and open the template in the editor.
                                 <td><?php echo $get_result['refer']; ?></td>  
                                 <td><?php echo $get_result['jobpost']; ?></td>
                                  <td><?php echo $get_result['Gender']; ?></td>
-                                <td><i class="fa fa-edit" aria-hidden="true"></i></td>
-                                <td><i class="fa fa-trash" aria-hidden="true"></i></td>
+                                 <td><a href="updates.php" data-toggle="tooltip" data-placement="top" title="Update">
+                                       <i class="fa fa-edit" aria-hidden="true"></i></a></td>
+                                       <td><a href="#" data-toggle="tooltip" title="Delete"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
                             </tr>
                             <?php } ?>
                         </tbody>
@@ -74,8 +75,6 @@ and open the template in the editor.
                 </div>
             </div>
         </div>
-        
-        
-        
+   
     </body>
 </html>
