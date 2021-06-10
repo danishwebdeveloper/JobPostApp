@@ -8,12 +8,12 @@ $database = "php_jobportal";
 
 $connection = mysqli_connect($server, $username, $password,  $database,);
 
-if($connection){
-    echo "Connection successful";
-}
-else {
-    echo "Not Successfull";
-}
+//if($connection){
+//    echo "Connection successful";
+//}
+//else {
+//    echo "Not Successfull";
+//}
 
 ?>
 
