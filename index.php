@@ -13,7 +13,7 @@
                         <img src="https://image.ibb.co/n7oTvU/logo_white.png" alt=""/>
                         <h3>Welcome</h3>
                         <p>Please fill the form carefully, May it change your life! Viel Glück</p>
-                        <input type="submit" name="" value="Login"/><br/>
+                        <a href="login_form.php"> <input type="text" name="" value="Login"/></a><br/>
                     </div>
                     <div class="col-md-9 register-right">
                         <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
@@ -141,10 +141,13 @@ if(isset ($_POST['submit_form'])){
     
     if($u_password == $u_ConfirmPassword){
         
+        $enc_password = password_hash($u_password, PASSWORD_BCRYPT);
+        
+        
     //        echo $u_gender;
     //        exit();
 
-       $query = "insert into `jobregistration` (`FullName`, `Email`, `Password`, `Cellphone`, `Qualification`, `refer`, `jobpost`, `Gender`) values ('$u_name', '$u_email', '$u_password', '$u_cellphone' , '$u_qualification',"
+       $query = "insert into `jobregistration` (`FullName`, `Email`, `Password`, `Cellphone`, `Qualification`, `refer`, `jobpost`, `Gender`) values ('$u_name', '$u_email', '$enc_password', '$u_cellphone' , '$u_qualification',"
                . " '$u_reference','$user_jobtype', '$u_gender')";
        
        $result = mysqli_query($connection, $query);

@@ -6,6 +6,17 @@
 
 <!------ Include the above in your HEAD tag ---------->
 
+<?php
+include 'db_connection.php';
+ $get_id = $_GET['id'];
+ 
+ $query = "select * from jobregistration where id={$get_id}";
+
+ 
+ $showdata = mysqli_query($connection, $query);
+ $showallresult = mysqli_fetch_array($showdata);
+
+?>
 
 <div class="container register">
                 <div class="row">
@@ -29,18 +40,18 @@
                                 <h3 class="register-heading">Update Record!</h3>
                              
                                 
-                                <form action="" method="POST" >
+                                <form action="#" method="POST" >
                                     
                                 <div class="row register-form">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <input type="text" class="form-control" name="user_name" placeholder="Full Name *" value="" required="" />
+                                            <input type="text" class="form-control" name="user_name" placeholder="Full Name *" value="<?php echo $showallresult['FullName']; ?>" required="" />
                                         </div>
                                         <div class="form-group">
-                                            <input type="email" class="form-control" name="user_email" placeholder="Email *" value="" required="" />
+                                            <input type="email" class="form-control" name="user_email" placeholder="Email *" value="<?php echo $showallresult['Email']; ?>" required="" />
                                         </div>
                                         <div class="form-group">
-                                            <input type="password" class="form-control" name="user_password" placeholder="Password *" value="" required="" />
+                                            <input type="password" class="form-control" name="user_password" placeholder="Password *" value="<?php echo $showallresult['Password']; ?>" required="" />
                                         </div>
                                         <div class="form-group">
                                             <input type="password" class="form-control" name="confirm_password"  placeholder="Confirm Password *" value="" required="" />
@@ -48,11 +59,11 @@
                                         <div class="form-group">
                                             <div class="maxl">
                                                 <label class="radio inline"> 
-                                                    <input type="radio" name="u_gender" value="male" required="" checked>
+                                                    <input type="radio" name="u_gender" value="<?php echo $showallresult['Gender'] ?>" required="" checked>
                                                     <span> Male </span> 
                                                 </label>
                                                 <label class="radio inline"> 
-                                                    <input type="radio" name="u_gender" value="female" required="">
+                                                    <input type="radio" name="u_gender" value="<?php echo $showallresult['Gender'] ?>" required="">
                                                     <span>Female </span> 
                                                 </label>
                                             </div>
@@ -61,13 +72,13 @@
                                     <div class="col-md-6">
                                         
                                         <div class="form-group">
-                                            <input type="text" required="" minlength="10" maxlength="10" name="user_cellphone" class="form-control" placeholder="Your Phone *" value="" />
+                                            <input type="text" required="" minlength="10" maxlength="10" name="user_cellphone" class="form-control" placeholder="Your Phone *" value="<?php echo $showallresult['Cellphone']; ?>" />
                                         </div>
                                         <div class="form-group">
-                                            <input type="text" required="" class="form-control" name="user_qualification" placeholder="Enter Qualification *" value="" />
+                                            <input type="text" required="" class="form-control" name="user_qualification" placeholder="Enter Qualification *" value="<?php echo $showallresult['Qualification']; ?>" />
                                         </div>
                                         <div class="form-group">
-                                            <input type="text" required="" class="form-control" name="user_reference" placeholder="Enter Reference *" value="" />
+                                            <input type="text" required="" class="form-control" name="user_reference" placeholder="Enter Reference *" value="<?php echo $showallresult['refer']; ?>" />
                                         </div>
                                         <div class="form-group">
                                             <select class="form-control" required="" name="job_type">
@@ -89,10 +100,10 @@
             </div>
 <?php
 include 'db_connection.php';
-
-
-if(isset ($_POST['submit_form'])){
+if(isset ($_POST ['submit_form'])){
     
+    
+    $update_id = $_GET['id'];
     $u_name = $_POST['user_name'];
     $u_email = $_POST['user_email'];
     $u_password = $_POST['user_password'];
@@ -104,35 +115,42 @@ if(isset ($_POST['submit_form'])){
     $user_jobtype = $_POST['job_type'];
     
     if($u_password == $u_ConfirmPassword){
-        
-    //        echo $u_gender;
-    //        exit();
-
-       $query = "insert into `jobregistration` (`FullName`, `Email`, `Password`, `Cellphone`, `Qualification`, `refer`, `jobpost`, `Gender`) values ('$u_name', '$u_email', '$u_password', '$u_cellphone' , '$u_qualification',"
-               . " '$u_reference','$user_jobtype', '$u_gender')";
+ 
+     
+       $up_query = "update jobregistration SET id= '$get_id', FullName='$u_name', Email='$u_email', Cellphone='$u_cellphone', Qualification='$u_qualification', refer='$u_reference', jobpost='$user_jobtype', Gender='$u_gender' WHERE id=$update_id";
+      
        
-       $result = mysqli_query($connection, $query);
+       $run_update_query = mysqli_query($connection, $up_query);
        
-       if($result){
+//       if($run_update_query){
+//           echo "OK BHAII";
+//       }
+//       else{
+//           echo "NOT OKAYY";
+//       }
+//     echo $update_query;
+//     exit();
+       
+ if($run_update_query){
            
 echo '<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js" ></script>';
 echo '<script type="text/javascript">';
-echo "alert('You successfully applied for a job of $user_jobtype .' );";
+echo "alert('You successfully Update for a job of $user_jobtype .' );";
 echo '</script>';
 
        }else{
            ?>
   <script> 
-       echo '<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js" ></script>';
+       echo '<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js" >\n\
+     </script>';
 echo '<script type="text/javascript">';
-echo "alert('Not successfully apply for a job!! Data Not Interested!!');";
+echo "alert('Not successfully Update for a job!! Data Not Interested!!');";
 echo '</script>';
-    
     
 </script>
 <?php
-       }
-       ?>
+      }
+      ?>
 
 
 
