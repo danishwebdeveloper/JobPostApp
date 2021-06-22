@@ -14,6 +14,5 @@ $connection = mysqli_connect($server, $username, $password,  $database,);
 //else {
 //    echo "Not Successfull";
 //}
-
 ?>
 

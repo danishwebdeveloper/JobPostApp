@@ -45,25 +45,25 @@ include 'db_connection.php';
                                 <div class="row register-form">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <input type="text" class="form-control" name="user_name" placeholder="Full Name *" value="<?php echo $showallresult['FullName']; ?>" required="" />
+                                            <input type="text" class="form-control" name="user_name" placeholder="Full Name *" value="<?php echo $showallresult['FullName']; ?>" />
                                         </div>
                                         <div class="form-group">
-                                            <input type="email" class="form-control" name="user_email" placeholder="Email *" value="<?php echo $showallresult['Email']; ?>" required="" />
+                                            <input type="email" class="form-control" name="user_email" placeholder="Email *" value="<?php echo $showallresult['Email']; ?>"  />
                                         </div>
                                         <div class="form-group">
-                                            <input type="password" class="form-control" name="user_password" placeholder="Password *" value="<?php echo $showallresult['Password']; ?>" required="" />
+                                            <input type="password" class="form-control" name="user_password" placeholder="Password *" value="<?php echo $showallresult['Password']; ?>" />
                                         </div>
                                         <div class="form-group">
-                                            <input type="password" class="form-control" name="confirm_password"  placeholder="Confirm Password *" value="" required="" />
+                                            <input type="password" class="form-control" name="confirm_password"  placeholder="Confirm Password *" value=""  />
                                         </div>
                                         <div class="form-group">
                                             <div class="maxl">
                                                 <label class="radio inline"> 
-                                                    <input type="radio" name="u_gender" value="<?php echo $showallresult['Gender'] ?>" required="" checked>
+                                                    <input type="radio" name="u_gender" value="<?php echo $showallresult['Gender'] ?>"  checked>
                                                     <span> Male </span> 
                                                 </label>
                                                 <label class="radio inline"> 
-                                                    <input type="radio" name="u_gender" value="<?php echo $showallresult['Gender'] ?>" required="">
+                                                    <input type="radio" name="u_gender" value="<?php echo $showallresult['Gender'] ?>" >
                                                     <span>Female </span> 
                                                 </label>
                                             </div>
@@ -114,23 +114,11 @@ if(isset ($_POST ['submit_form'])){
     $u_reference = $_POST['user_reference'];
     $user_jobtype = $_POST['job_type'];
     
-    if($u_password == $u_ConfirmPassword){
- 
-     
+   
        $up_query = "update jobregistration SET id= '$get_id', FullName='$u_name', Email='$u_email', Cellphone='$u_cellphone', Qualification='$u_qualification', refer='$u_reference', jobpost='$user_jobtype', Gender='$u_gender' WHERE id=$update_id";
-      
        
        $run_update_query = mysqli_query($connection, $up_query);
-       
-//       if($run_update_query){
-//           echo "OK BHAII";
-//       }
-//       else{
-//           echo "NOT OKAYY";
-//       }
-//     echo $update_query;
-//     exit();
-       
+         
  if($run_update_query){
            
 echo '<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js" ></script>';
@@ -150,18 +138,5 @@ echo '</script>';
 </script>
 <?php
       }
-      ?>
-
-
-
-  <?php  }
-    else{
-        ?>
-<script> 
-    alert('Your Password Do not Match!!');
-</script>
-    <?php
-    }
-    
+   
 }
-?>

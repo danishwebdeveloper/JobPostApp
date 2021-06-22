@@ -24,16 +24,18 @@ include 'links.php';
     </div>
 
     <!-- Login Form -->
-    <form>
-      <input type="text" id="login" class="fadeIn second" name="login" placeholder="login">
-      <input type="text" id="password" class="fadeIn third" name="login" placeholder="password">
-      <input type="submit" class="fadeIn fourth" value="Log In">
+    <form action="form_display.php" method="POST">
+        <input type="text" id="login" class="fadeIn second" name="email" placeholder="login">
+      <input type="text" id="password" class="fadeIn third" name="pass" placeholder="password">
+      <input type="submit" class="fadeIn fourth" name="submit_form" value="LOG IN">
     </form>
+    
 
-    <!-- Remind Passowrd -->
+    <!-- Remind Password -->
+    
     <div id="formFooter">
       <a class="underlineHover" href="#">Forgot Password?</a>
     </div>
-
+  
   </div>
 </div>
