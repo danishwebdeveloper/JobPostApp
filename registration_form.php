@@ -1,3 +1,8 @@
+
+<?php
+session_start();
+?>
+
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -21,18 +26,18 @@
 	<p class="divider-text">
         <span class="bg-light">OR</span>
     </p>
-    <form action="" method="POST">
+    <form action="<?php echo htmlentities($_SERVER['PHP_SELF']); ?>" method="POST">
 	<div class="form-group input-group">
 		<div class="input-group-prepend">
 		    <span class="input-group-text"> <i class="fa fa-user"></i> </span>
 		 </div>
-        <input name="user_name" class="form-control"  placeholder="Full name" type="text">
+            <input name="user_name" class="form-control" required=""  placeholder="Full name" type="text">
     </div> <!-- form-group// -->
     <div class="form-group input-group">
     	<div class="input-group-prepend">
 		    <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
 		 </div>
-        <input name="email" class="form-control"  placeholder="Email address" type="email">
+        <input name="email" class="form-control" required=""  placeholder="Email address" type="email">
     </div> <!-- form-group// -->
     <div class="form-group input-group">
     	<div class="input-group-prepend">
@@ -260,13 +265,13 @@
 		<option data-countryCode="ZW" value="263">Zimbabwe (+263)</option>
 	</optgroup>
 </select>
-    	<input name="contact" class="form-control" placeholder="Phone number" type="text">
+        <input name="contact" class="form-control" required="" placeholder="Phone number" type="text">
     </div> <!-- form-group// -->
     <div class="form-group input-group">
     	<div class="input-group-prepend">
 		    <span class="input-group-text"> <i class="fa fa-building"></i> </span>
 		</div>
-        <select name="job_type" class="form-control">
+        <select name="job_type" required="" class="form-control">
 			<option selected=""> Select job type</option>
 			<option>Web Developer</option>
 			<option>Android Developer</option>
@@ -278,18 +283,19 @@
     	<div class="input-group-prepend">
 		    <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
 	</div>
-        <input class="form-control" name="password" placeholder="Create password" type="password">
+        <input class="form-control" required="" name="password" placeholder="Create password" type="password">
     </div> <!-- form-group// -->
     <div class="form-group input-group">
     	<div class="input-group-prepend">
 		    <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
-		</div>
-        <input class="form-control" name="repeat_password" placeholder="Repeat password" type="password">
+	</div>
+        <input class="form-control" required="" name="repeat_password" placeholder="Repeat password" type="password">
     </div> <!-- form-group// -->                                      
     <div class="form-group">
         <button type="submit" name="user_registration" class="btn btn-primary btn-block"> Create Account  </button>
-    </div> <!-- form-group// -->      
-    <p class="text-center">Have an account? <a href="">Log In</a> </p>                                                                 
+      
+        <p class="text-center btn btn-success btn-block">Don't Have an account? <a href="login_form.php" style="color: white;">LOG IN</a> </p>  
+     </div> <!-- form-group// -->   
 </form>
 </article>
 </div> <!-- card.// -->
@@ -314,19 +320,44 @@ if(isset($_POST['user_registration'])){
     
     if($get_password == $repeat_pass){
           $password_security = password_hash($get_password, PASSWORD_BCRYPT);
-        
-    $registration_query = "INSERT INTO `user_registration` (`FullName`, `Email`, `Contact`, `Job_type`, `Password`) VALUES ('$get_fullName' , '$get_email', '$get_country' , '$get_jobtype' ,'$password_security')";
+          
+    $check_email = "SELECT * FROM user_registration WHERE Email='$get_email'";
+    $run_query = mysqli_query($connection, $check_email);
+    if(mysqli_num_rows($run_query)>0){
+        ?>
+<script>
+            alert('Your Email Already Excist');
+</script>
+        <?php
+    }else{
+        if($get_password == $repeat_pass){
+            $registration_query = "INSERT INTO `user_registration` (`FullName`, `Email`, `Contact`, `Job_type`, `Password`) VALUES ('$get_fullName' , '$get_email', '$get_country' , '$get_jobtype' ,'$password_security')";
     $run_query = mysqli_query($connection, $registration_query);
     if($run_query){
-         echo "Data Inserted succesfully";
-    exit();
+        ?>
+        <script>
+            alert('Your Data Added Successfully');
+</script>
+        <?php
     }
-    else{
-        echo "NOT";
-        exit();
+    else{ ?>
+        <script>
+            alert('Not Successfull');
+</script>
+        <?php
     }
+    
+        }
+    }
+        
+    
     } else{
-        echo "Password Do Not Match";
+        
+      ?>
+        <script>
+            alert('Password Not Match');
+</script>
+        <?php
     }
     
   

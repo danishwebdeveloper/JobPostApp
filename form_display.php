@@ -1,6 +1,6 @@
 
  <?php
- 
+ session_start();
 
  include 'db_connection.php';
  
@@ -11,8 +11,8 @@
         
         $query = " select * from jobregistration where Email='".$get_email ."' limit 1";
         
-//        var_dump($query);
-        
+//      var_dump($query);
+       
        $res = mysqli_query($connection, $query);
        // var_dump($res);
      
@@ -21,15 +21,14 @@
            $db_email = $rows['Email'];
            $db_pass = $rows['Password'];
            
+           
 //           echo "$db_email . $get_email";
 //           exit();
            
            $verify_password = password_verify($get_pass, $db_pass);
-           
            if($verify_password && $db_email == $get_email){
          
        header("location:display.php");
-      
            }
            else{
                echo "not succseffull";

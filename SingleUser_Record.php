@@ -1,9 +1,6 @@
-
 <?php
 session_start();
-if(!isset($_SESSION['UserName'])){
-    header("Location:login_form.php");
-}
+$store_Id = $_SESSION['ID'];
 
 ?>
 <html>
@@ -13,27 +10,25 @@ if(!isset($_SESSION['UserName'])){
     
     <link href="styles.css" rel="stylesheet" type="text/css"/>
     <link href="display_style.css" rel="stylesheet" type="text/css"/>
-    
     </head>
     <body>
         <?php
         include 'links.php';
         include 'db_connection.php';
-        $query = "Select * from jobregistration";
+        $query = "Select *from jobregistration";
         $result = mysqli_query($connection, $query);
-        
-//        Display total rows
-//        $num = mysqli_num_rows($result);
-//        echo $num;
-       
+//        
+//        var_dump($result);
+//        exit();
+ 
         ?>
         
         <div class="main-div">
             <h2 style="margin-top: 20px;">
-                List of Candidates.!
+                List of Candidates!!
             </h2>
             <div class="center-div">
-                <h4><b>Login: </b> <?php echo $_SESSION['UserName'];  ?> <button><a href="logout.php" class="btn-success"> LOGOUT </a></button></h4>
+                <p>Hello <?php echo $_SESSION['UserName']; ?></p>
                 <div class="table-responsive" class="bolder">
                     <table>
                         <thead>
@@ -50,13 +45,11 @@ if(!isset($_SESSION['UserName'])){
                                 <th>Delete</th>
                             </tr>
                         </thead>
-                        
                         <tbody>
                             <tr>
                                 <?php
                    while($get_result = mysqli_fetch_array($result)){ 
                          
-         
                          ?>
                                 <td><?php echo $get_result['id']; ?></td>
                                 <td><?php echo $get_result['FullName']; ?></td>
@@ -65,7 +58,7 @@ if(!isset($_SESSION['UserName'])){
                                 <td><?php echo $get_result['Qualification']; ?></td>
                                 <td><?php echo $get_result['refer']; ?></td>  
                                 <td><?php echo $get_result['jobpost']; ?></td>
-                                 <td><?php echo $get_result['Gender']; ?></td>
+                                <td><?php echo $get_result['Gender']; ?></td>
                    <td><a href="updates.php?id=<?php echo $get_result['id']; ?>" data-toggle="tooltip" data-placement="top" title="Update">
                                        <i class="fa fa-edit" aria-hidden="true"></i></a></td>
                                        <td><a href="delete.php?id=<?php echo $get_result['id']; ?>" data-toggle="tooltip" title="Delete"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
